@@ -94,32 +94,8 @@ function initFullPage() {
         });
     });
 
-    // --- Mouse wheel: only navigate when at scroll boundaries ---
-    const container = document.getElementById('fpContainer');
-    let wheelTimeout;
-    container.addEventListener('wheel', function(e) {
-        const section = sections[currentSection];
-        const inner = section.querySelector('.fp-inner');
-        if (!inner) return;
-
-        const atTop = inner.scrollTop <= 1;
-        const atBottom = inner.scrollTop + inner.clientHeight >= inner.scrollHeight - 1;
-        const hasScroll = inner.scrollHeight > inner.clientHeight + 2;
-
-        // If section has internal scroll and not at boundary, allow normal scroll
-        if (hasScroll && !atTop && !atBottom) return;
-        if (hasScroll && e.deltaY > 0 && !atBottom) return;
-        if (hasScroll && e.deltaY < 0 && !atTop) return;
-
-        e.preventDefault();
-
-        // Debounce to prevent rapid section switching
-        clearTimeout(wheelTimeout);
-        wheelTimeout = setTimeout(() => {
-            if (e.deltaY > 0) goToSection(currentSection + 1);
-            else if (e.deltaY < 0) goToSection(currentSection - 1);
-        }, 80);
-    }, { passive: false });
+    // --- Mouse wheel: internal scroll only, no page navigation ---
+    // (no handler needed — natural scroll behavior within sections)
 
     // --- Keyboard navigation ---
     document.addEventListener('keydown', function(e) {
@@ -132,25 +108,6 @@ function initFullPage() {
             goToSection(currentSection - 1);
         }
     });
-
-    // --- Touch swipe support ---
-    let touchStartY = 0;
-    container.addEventListener('touchstart', (e) => {
-        touchStartY = e.touches[0].clientY;
-    }, { passive: true });
-
-    container.addEventListener('touchend', (e) => {
-        const delta = touchStartY - e.changedTouches[0].clientY;
-        if (Math.abs(delta) > 50) {
-            const section = sections[currentSection];
-            const inner = section.querySelector('.fp-inner');
-            const atTop = !inner || inner.scrollTop <= 1;
-            const atBottom = !inner || inner.scrollTop + inner.clientHeight >= inner.scrollHeight - 1;
-
-            if (delta > 0 && atBottom) goToSection(currentSection + 1);
-            if (delta < 0 && atTop) goToSection(currentSection - 1);
-        }
-    }, { passive: true });
 
     // --- Initial state ---
     updateUI();
@@ -202,6 +159,9 @@ function setupJourneyTabs() {
             this.classList.add('active');
             expPanel.style.display = this.dataset.target === 'experience' ? '' : 'none';
             eduPanel.style.display = this.dataset.target === 'education' ? '' : 'none';
+            // Reset scroll position on tab switch
+            const wrapper = document.querySelector('#sec-timeline .fp-scroll-wrap');
+            if (wrapper) wrapper.scrollTop = 0;
         });
     });
 }
