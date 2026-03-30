@@ -81,8 +81,3 @@ dmypy.json
 # Generated files
 *.pyc
 *.pyo
-
-# Frontend images
-frontend/*.jpg
-frontend/*.jpeg
-frontend/*.png
