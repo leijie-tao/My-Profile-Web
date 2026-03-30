@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initFullPage();
     initBackgroundOrbs();
     setupJourneyTabs();
-    setupFormListener();
 });
 
 // ===== Full-page Slide Controller =====
@@ -166,35 +165,3 @@ function setupJourneyTabs() {
     });
 }
 
-// ===== Contact Form =====
-function setupFormListener() {
-    const form = document.getElementById('contactForm');
-    const msg = document.getElementById('formMessage');
-    if (!form) return;
-
-    form.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const data = {
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            subject: document.getElementById('subject').value,
-            message: document.getElementById('message').value
-        };
-        try {
-            const res = await fetch(`${API_BASE_URL}/contacts/`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-            if (res.ok) {
-                msg.className = 'form-message success';
-                msg.textContent = 'Message sent successfully!';
-                form.reset();
-                setTimeout(() => { msg.textContent = ''; }, 5000);
-            } else throw new Error();
-        } catch {
-            msg.className = 'form-message error';
-            msg.textContent = 'Error sending message. Please try again.';
-        }
-    });
-}
