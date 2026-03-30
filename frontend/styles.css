@@ -1564,8 +1564,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .ct-label {
-    font-size: 12px;
-    letter-spacing: 2px;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
     color: #7B68EE;
     font-weight: 500;
     text-transform: uppercase;
@@ -1573,11 +1573,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .ct-heading {
-    font-size: clamp(28px, 4vw, 42px);
-    font-weight: 500;
-    line-height: 1.2;
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.15;
     color: var(--text-dark);
-    margin-bottom: 20px;
+    margin-bottom: 24px;
+    font-family: 'Playfair Display', serif;
 }
 
 .ct-heading-accent {
@@ -1589,22 +1590,22 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .ct-desc {
-    font-size: 14px;
+    font-size: 1.05rem;
     color: var(--text-light);
-    max-width: 460px;
-    line-height: 1.6;
+    max-width: 520px;
+    line-height: 1.8;
     margin-bottom: 2rem;
 }
 
 .ct-email-btn {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 12px 28px;
+    gap: 10px;
+    padding: 14px 32px;
     border-radius: 30px;
     background: linear-gradient(135deg, #7B68EE, #00BFFF);
     color: white;
-    font-size: 14px;
+    font-size: 1rem;
     font-weight: 500;
     text-decoration: none;
     transition: transform 0.2s ease;
@@ -1625,13 +1626,13 @@ h1, h2, h3, h4, h5, h6 {
 .ct-social-btn {
     display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 10px 20px;
+    gap: 8px;
+    padding: 12px 24px;
     border-radius: 30px;
     border: 1px solid rgba(0, 0, 0, 0.12);
     color: var(--text-dark);
     text-decoration: none;
-    font-size: 13px;
+    font-size: 0.95rem;
     font-weight: 500;
     transition: background 0.2s ease, border-color 0.2s ease;
 }
